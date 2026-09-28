@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: dockyard-api
+
+  # No authentication exists yet (deferred to M8). The API is therefore bound to
+  # the loopback interface only; do not widen this without adding auth first.
+  main:
+    banner-mode: off
+
+  datasource:
+    url: ${DOCKYARD_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/dockyard}
+    username: ${DOCKYARD_DATASOURCE_USERNAME:dockyard}
+    password: ${DOCKYARD_DATASOURCE_PASSWORD:dockyard}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Flyway owns the schema. Hibernate only verifies that entities match it and
+      # fails the boot on drift. Never 'update' or 'create'.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+
+  devservices:
+    # Local infrastructure is defined in compose.yaml and versioned there. Spring's
+    # Dev Services would start an unversioned database behind our back.
+    enabled: false
+
+server:
+  port: ${DOCKYARD_API_PORT:8080}
+  address: 127.0.0.1
+  shutdown: graceful
+  error:
+    include-message: never
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never
+  info:
+    env:
+      enabled: true
+
+logging:
+  pattern:
+    # %X{correlationId} is populated by CorrelationIdFilter.
+    console: "%d{HH:mm:ss.SSS} %-5level [%X{correlationId:--}] %logger{36} - %msg%n"
+  level:
+    org.springframework.web: INFO
