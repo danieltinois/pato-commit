@@ -1,0 +1,14 @@
+# Test overlay. Merges over src/main/resources/application.yml; the base file is
+# still on the classpath, so only the differences belong here.
+pato-commit:
+  webhook:
+    # Matches the secret GitHub publishes as its test vector.
+    secret: "It's a Secret to Everybody"
+    # Long enough that the sweeper never fires during a test run. Tests drive
+    # WebhookProcessor.recoverStale() directly, so cadence is irrelevant here.
+    recovery-interval: PT1H
+
+logging:
+  level:
+    root: WARN
+    dev.patocommit: INFO

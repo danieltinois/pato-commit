@@ -7,6 +7,12 @@ spring:
   main:
     banner-mode: off
 
+  threads:
+    # Java 25 virtual threads. Webhook handlers are IO-bound and short-lived, so
+    # this is the right default: no pool sizing, no queue depth to reason about.
+    virtual:
+      enabled: true
+
   datasource:
     url: ${PATO_COMMIT_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/pato_commit}
     username: ${PATO_COMMIT_DATASOURCE_USERNAME:pato_commit}
@@ -51,6 +57,18 @@ management:
   info:
     env:
       enabled: true
+
+pato-commit:
+  webhook:
+    # GitHub webhook secret. Empty until the GitHub App exists (M2); while it is
+    # empty the intake rejects every delivery rather than accepting unsigned ones.
+    secret: ${PATO_COMMIT_GITHUB_WEBHOOK_SECRET:}
+    # A claimed delivery is handed back to the sweeper if it is still not finished
+    # after this long. Must stay above the worst-case handler runtime.
+    stale-after: PT5M
+    max-attempts: 3
+    recovery-batch-size: 50
+    recovery-interval: PT30S
 
 logging:
   pattern:
