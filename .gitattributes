@@ -1,0 +1,10 @@
+# Keep line endings in the repository as LF and check them out as LF,
+# regardless of each machine's core.autocrlf.
+#
+# Without this, a Windows clone (where core.autocrlf defaults to true)
+# materialises every text file with CRLF, contradicting .editorconfig and
+# breaking the mvnw shell script. `text=auto` still detects binary files
+# such as favicon.ico and leaves them alone.
+#
+# apps/api/.gitattributes still wins for that directory: mvnw.cmd needs CRLF.
+* text=auto eol=lf
