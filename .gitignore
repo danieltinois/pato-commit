@@ -1,0 +1,29 @@
+# --- Secrets: never commit these ---
+.env
+.env.local
+*.pem
+*.key
+
+# --- Java / Maven ---
+target/
+*.log
+
+# --- Node / Next.js ---
+node_modules/
+.pnpm-store/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# --- IDEs ---
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# --- OS ---
+.DS_Store
+Thumbs.db
