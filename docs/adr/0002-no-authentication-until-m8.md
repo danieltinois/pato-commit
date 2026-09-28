@@ -5,7 +5,7 @@ Status: accepted
 
 ## Context
 
-Dockyard is a self-hosted tool for one developer. It reads private repositories
+Pato Commit is a self-hosted tool for one developer. It reads private repositories
 through a GitHub App installation. A login system is a large surface: sessions,
 password or token storage, recovery, authorization, and every one of them is a
 way to leak access to private source code.

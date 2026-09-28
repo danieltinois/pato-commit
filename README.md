@@ -1,8 +1,8 @@
-# Dockyard
+# Pato Commit
 
 > What is happening across your GitHub repositories, and what needs you now?
 
-Dockyard is a self-hosted **Developer Inbox**. It reads a GitHub App's
+Pato Commit is a self-hosted **Developer Inbox**. It reads a GitHub App's
 installations, webhooks and REST API, and tells a developer which pull requests,
 issues, failing workflows and security alerts are waiting on *them* right now.
 
@@ -61,14 +61,14 @@ Every setting has a working local default; override through the environment.
 
 | Variable | Default |
 |---|---|
-| `DOCKYARD_DATASOURCE_URL` | `jdbc:postgresql://127.0.0.1:5432/dockyard` |
-| `DOCKYARD_DATASOURCE_USERNAME` | `dockyard` |
-| `DOCKYARD_DATASOURCE_PASSWORD` | `dockyard` |
-| `DOCKYARD_API_PORT` | `8080` |
-| `DOCKYARD_API_ORIGIN` (web) | `http://127.0.0.1:8080` |
+| `PATO_COMMIT_DATASOURCE_URL` | `jdbc:postgresql://127.0.0.1:5432/pato_commit` |
+| `PATO_COMMIT_DATASOURCE_USERNAME` | `pato_commit` |
+| `PATO_COMMIT_DATASOURCE_PASSWORD` | `pato_commit` |
+| `PATO_COMMIT_API_PORT` | `8080` |
+| `PATO_COMMIT_API_ORIGIN` (web) | `http://127.0.0.1:8080` |
 
-GitHub App credentials (`DOCKYARD_GITHUB_APP_ID`,
-`DOCKYARD_GITHUB_PRIVATE_KEY`, `DOCKYARD_GITHUB_WEBHOOK_SECRET`) arrive in M2.
+GitHub App credentials (`PATO_COMMIT_GITHUB_APP_ID`,
+`PATO_COMMIT_GITHUB_PRIVATE_KEY`, `PATO_COMMIT_GITHUB_WEBHOOK_SECRET`) arrive in M2.
 They are read from the environment and must never be committed.
 
 ## Validation

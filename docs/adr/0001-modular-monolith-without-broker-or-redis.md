@@ -5,7 +5,7 @@ Status: accepted
 
 ## Context
 
-Dockyard receives GitHub webhooks at-least-once. A common design is to hand the
+Pato Commit receives GitHub webhooks at-least-once. A common design is to hand the
 event to a broker (Kafka, RabbitMQ, SQS) and let workers process it. That design
 is attractive in production and actively harmful in a single-developer product
 with no throughput requirements: it adds an infrastructure dependency, a second

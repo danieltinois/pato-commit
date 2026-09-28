@@ -16,7 +16,7 @@ const foundations = [
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight">Dockyard</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Pato Commit</h1>
       <p className="mt-2 text-muted-foreground">
         What is happening across your GitHub repositories, and what needs you now.
       </p>

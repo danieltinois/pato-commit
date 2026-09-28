@@ -1,4 +1,4 @@
-package com.dockyard.shared;
+package dev.patocommit.shared;
 
 import java.io.IOException;
 import java.util.UUID;

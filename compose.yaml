@@ -1,18 +1,20 @@
-# Local infrastructure for Dockyard. The applications themselves run on the host
+# Local infrastructure for Pato Commit. The applications themselves run on the host
 # (mvn spring-boot:run / npm run dev) so that the edit loop does not go through a
 # container rebuild.
 #
 # Redis is deliberately absent: nothing in the MVP needs it. See docs/adr when it
 # arrives (M8, with authentication).
+name: pato-commit
+
 services:
 
   postgres:
     image: postgres:18-alpine
-    container_name: dockyard-postgres
+    container_name: pato-commit-postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-dockyard}
-      POSTGRES_USER: ${POSTGRES_USER:-dockyard}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dockyard}
+      POSTGRES_DB: ${POSTGRES_DB:-pato_commit}
+      POSTGRES_USER: ${POSTGRES_USER:-pato_commit}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pato_commit}
     # Loopback only: an unauthenticated database has no business on the LAN.
     ports:
       - "127.0.0.1:5432:5432"
@@ -23,7 +25,7 @@ services:
       # See docker-library/postgres#1259.
       - postgres-data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dockyard} -d ${POSTGRES_DB:-dockyard}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pato_commit} -d ${POSTGRES_DB:-pato_commit}"]
       interval: 5s
       timeout: 5s
       retries: 12

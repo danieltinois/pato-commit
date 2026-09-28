@@ -8,11 +8,11 @@
 		<version>4.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.dockyard</groupId>
+	<groupId>dev.patocommit</groupId>
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dockyard-api</name>
-	<description>Dockyard API</description>
+	<name>pato-commit-api</name>
+	<description>Pato Commit API</description>
 
 	<properties>
 		<java.version>25</java.version>

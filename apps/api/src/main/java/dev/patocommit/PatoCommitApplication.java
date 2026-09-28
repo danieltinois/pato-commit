@@ -1,13 +1,13 @@
-package com.dockyard;
+package dev.patocommit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DockyardApplication {
+public class PatoCommitApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DockyardApplication.class, args);
+		SpringApplication.run(PatoCommitApplication.class, args);
 	}
 
 }

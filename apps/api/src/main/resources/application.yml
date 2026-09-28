@@ -1,6 +1,6 @@
 spring:
   application:
-    name: dockyard-api
+    name: pato-commit
 
   # No authentication exists yet (deferred to M8). The API is therefore bound to
   # the loopback interface only; do not widen this without adding auth first.
@@ -8,9 +8,9 @@ spring:
     banner-mode: off
 
   datasource:
-    url: ${DOCKYARD_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/dockyard}
-    username: ${DOCKYARD_DATASOURCE_USERNAME:dockyard}
-    password: ${DOCKYARD_DATASOURCE_PASSWORD:dockyard}
+    url: ${PATO_COMMIT_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/pato_commit}
+    username: ${PATO_COMMIT_DATASOURCE_USERNAME:pato_commit}
+    password: ${PATO_COMMIT_DATASOURCE_PASSWORD:pato_commit}
 
   jpa:
     open-in-view: false
@@ -33,7 +33,7 @@ spring:
     enabled: false
 
 server:
-  port: ${DOCKYARD_API_PORT:8080}
+  port: ${PATO_COMMIT_API_PORT:8080}
   address: 127.0.0.1
   shutdown: graceful
   error:

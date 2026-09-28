@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dockyard",
+  title: "Pato Commit",
   description: "What is happening across your GitHub repositories, and what needs you now.",
 };
 

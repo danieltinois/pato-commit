@@ -1,11 +1,11 @@
-package com.dockyard.shared;
+package dev.patocommit.shared;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.dockyard.shared.CorrelationIdFilter;
+import dev.patocommit.shared.CorrelationIdFilter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
