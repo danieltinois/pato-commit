@@ -29,8 +29,8 @@ jobs:
           java-version: '25'
           cache: maven
 
-      # No test in this project needs a database yet. Testcontainers arrives
-      # with the first schema migration (M1) and then provisions Postgres here.
+      # M1 integration tests provision PostgreSQL with Testcontainers, so no
+      # service container is needed here.
       - name: Build and test
         run: ./mvnw -B -ntp clean verify
 

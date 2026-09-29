@@ -25,7 +25,7 @@ export default function Home() {
         <CardHeader>
           <CardTitle>Foundations in place</CardTitle>
           <CardDescription>
-            Milestone M0. The Developer Inbox arrives in M3.
+            Milestones M0 and M1 are done. The Developer Inbox arrives in M3.
           </CardDescription>
         </CardHeader>
         <CardContent>
