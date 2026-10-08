@@ -214,6 +214,11 @@ trail at once — with the state machine enforced by `CHECK` constraints
 says they should be) and a partial index that keeps the sweeper's scan small
 regardless of how many deliveries are already terminal.
 
+`V2__github_installation_and_repository.sql` creates `github_installation` and
+`github_repository`, keyed by GitHub's numeric ids because names are renamed and
+reused. Nothing is deleted: removal is a `removed_at` timestamp, and a reinstall
+moves a repository to the new installation id instead of duplicating it.
+
 ## Roadmap
 
 | Milestone | Scope                                               | State   |
