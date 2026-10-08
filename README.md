@@ -157,6 +157,8 @@ Every setting has a working local default; override through the environment.
 | `PATO_COMMIT_API_PORT`            | `8080`                                         |
 | `PATO_COMMIT_API_ORIGIN` (web)    | `http://127.0.0.1:8080`                        |
 | `PATO_COMMIT_GITHUB_WEBHOOK_SECRET` | empty — every delivery is rejected while unset |
+| `PATO_COMMIT_GITHUB_APP_ID`       | empty — GitHub API calls are disabled while unset |
+| `PATO_COMMIT_GITHUB_PRIVATE_KEY`  | empty — PEM text; `\n` escapes are accepted     |
 
 Actuator endpoints: `/actuator/health`, `/actuator/info`, `/actuator/metrics`,
 `/actuator/prometheus`.
