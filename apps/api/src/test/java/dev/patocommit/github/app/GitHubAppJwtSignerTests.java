@@ -1,5 +1,6 @@
 package dev.patocommit.github.app;
 
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -24,6 +25,8 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 class GitHubAppJwtSignerTests {
 
 	private static final long APP_ID = 123456L;
+
+	private static final URI API_URL = URI.create("https://api.github.com");
 
 	private static final Instant NOW = Instant.parse("2026-10-08T12:00:00Z");
 
@@ -60,7 +63,7 @@ class GitHubAppJwtSignerTests {
 	}
 
 	private static GitHubAppJwtSigner signerWith(String privateKey) {
-		return new GitHubAppJwtSigner(new GitHubAppProperties(APP_ID, privateKey), CLOCK);
+		return new GitHubAppJwtSigner(new GitHubAppProperties(APP_ID, privateKey, API_URL), CLOCK);
 	}
 
 	@Test
@@ -124,7 +127,7 @@ class GitHubAppJwtSignerTests {
 
 	@Test
 	void bootsUnconfiguredButRefusesToSign() {
-		GitHubAppJwtSigner signer = new GitHubAppJwtSigner(new GitHubAppProperties(null, ""), CLOCK);
+		GitHubAppJwtSigner signer = new GitHubAppJwtSigner(new GitHubAppProperties(null, "", API_URL), CLOCK);
 
 		assertThat(signer.isConfigured()).isFalse();
 		assertThatIllegalStateException().isThrownBy(signer::sign);

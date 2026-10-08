@@ -1,5 +1,7 @@
 package dev.patocommit.github.app;
 
+import java.net.URI;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -12,11 +14,15 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
  * from {@code PATO_COMMIT_GITHUB_PRIVATE_KEY} and is never defaulted. Literal
  * {@code \n} sequences are accepted, because a multi-line environment variable is
  * awkward in most shells and {@code .env} files.
+ * @param apiUrl the REST API root. Only differs from the default on GitHub
+ * Enterprise Server.
  */
 @ConfigurationProperties("pato-commit.github-app")
-record GitHubAppProperties(Long appId, @DefaultValue("") String privateKey) {
+record GitHubAppProperties(Long appId,
+		@DefaultValue("") String privateKey,
+		@DefaultValue("https://api.github.com") URI apiUrl) {
 
-	/** Both values present. Until then the App cannot authenticate, and says so. */
+	/** Both credentials present. Until then the App cannot authenticate, and says so. */
 	boolean isConfigured() {
 		return appId != null && privateKey != null && !privateKey.isBlank();
 	}

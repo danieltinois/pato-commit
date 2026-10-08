@@ -74,6 +74,8 @@ pato-commit:
     # boots, and every call that would need GitHub fails with a clear error.
     app-id: ${PATO_COMMIT_GITHUB_APP_ID:}
     private-key: ${PATO_COMMIT_GITHUB_PRIVATE_KEY:}
+    # Only differs from the default on GitHub Enterprise Server.
+    api-url: https://api.github.com
 
 logging:
   pattern:
