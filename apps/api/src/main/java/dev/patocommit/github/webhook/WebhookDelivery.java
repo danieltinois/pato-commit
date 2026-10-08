@@ -14,7 +14,7 @@ import java.util.UUID;
  * @param error exception class name only, never a message: a Jackson parse error
  * can quote the offending input, and this value would end up in a log.
  */
-record WebhookDelivery(UUID deliveryId,
+public record WebhookDelivery(UUID deliveryId,
 		String eventType,
 		String action,
 		Long repositoryId,

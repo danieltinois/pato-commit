@@ -174,10 +174,14 @@ deduplicates by delivery ID and persists the delivery before answering. The
 `ping` handler exists to prove the path end to end; no other event type is
 handled yet.
 
-**In M2:** `PATO_COMMIT_GITHUB_APP_ID` and `PATO_COMMIT_GITHUB_PRIVATE_KEY`,
-installation and repository sync, the installation-token cache, and pointing an
-App's webhook URL at the endpoint above. Credentials are read from the
-environment and must never be committed.
+**M2, in progress:** the App signs its JWT from `PATO_COMMIT_GITHUB_APP_ID` and
+`PATO_COMMIT_GITHUB_PRIVATE_KEY` and exchanges it for installation tokens,
+cached in memory until five minutes before expiry. The `installation` and
+`installation_repositories` handlers keep `github_installation` and
+`github_repository` current, and cope with GitHub delivering events out of
+order: once an installation is deleted, late events for it are ignored. The
+full repository sync is next. Credentials are read from the environment and must
+never be committed.
 
 ## Webhook processing
 

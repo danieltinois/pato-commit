@@ -9,7 +9,7 @@ package dev.patocommit.github.webhook;
  * {@code PROCESSING} with a timestamp, and the sweeper takes it again after a
  * timeout rather than leaving it stuck.
  */
-enum WebhookDeliveryStatus {
+public enum WebhookDeliveryStatus {
 
 	/** Persisted, not yet claimed by any worker. */
 	PENDING,
@@ -27,7 +27,7 @@ enum WebhookDeliveryStatus {
 	FAILED;
 
 	/** A delivery in one of these states is never claimed again. */
-	boolean isTerminal() {
+	public boolean isTerminal() {
 		return this == PROCESSED || this == IGNORED || this == FAILED;
 	}
 
