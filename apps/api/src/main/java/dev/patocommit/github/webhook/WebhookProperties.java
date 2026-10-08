@@ -14,11 +14,14 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
  * {@code PROCESSING} after being claimed, before the sweeper may take it again.
  * Must exceed the worst-case handler runtime or healthy work gets re-run.
  * @param maxAttempts total claims before a delivery is parked in {@code FAILED}.
+ * @param port a second loopback port that serves the webhook endpoint and
+ * nothing else, for a tunnel to point at (ADR 0003). {@code 0} disables it.
  */
 @ConfigurationProperties("pato-commit.webhook")
 record WebhookProperties(@DefaultValue("") String secret,
 		@DefaultValue("PT5M") Duration staleAfter,
 		@DefaultValue("3") int maxAttempts,
-		@DefaultValue("50") int recoveryBatchSize) {
+		@DefaultValue("50") int recoveryBatchSize,
+		@DefaultValue("8090") int port) {
 
 }

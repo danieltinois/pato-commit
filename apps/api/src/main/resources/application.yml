@@ -69,6 +69,9 @@ pato-commit:
     max-attempts: 3
     recovery-batch-size: 50
     recovery-interval: PT30S
+    # Loopback port serving only the webhook endpoint, for a tunnel to point at
+    # (ADR 0003). Never point a tunnel at server.port. 0 disables it.
+    port: ${PATO_COMMIT_WEBHOOK_PORT:8090}
   github-app:
     # Both empty until a GitHub App exists. While either is missing the API still
     # boots, and every call that would need GitHub fails with a clear error.

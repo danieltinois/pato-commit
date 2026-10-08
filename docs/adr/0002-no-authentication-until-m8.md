@@ -1,7 +1,7 @@
 # 2. No authentication until M8; the API is bound to loopback
 
 Date: 2026-09-28
-Status: accepted
+Status: accepted, amended by [0003](0003-webhook-only-port-for-tunnels.md)
 
 ## Context
 

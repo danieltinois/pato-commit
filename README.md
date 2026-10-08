@@ -111,6 +111,7 @@ apps/
 assets/                    Logo
 compose.yaml               Local PostgreSQL
 docs/adr/                  Architecture decision records
+scripts/                   Developer tools, e.g. signed webhook sender
 ```
 
 ## Running locally
@@ -145,6 +146,33 @@ cd apps\api; .\mvnw.cmd spring-boot:run
 The API has **no authentication yet** and is therefore bound to `127.0.0.1`
 only. Do not widen `server.address` before M8.
 
+### Exploring the API
+
+- **Swagger UI:** http://127.0.0.1:8080/swagger-ui.html — the read endpoints,
+  such as `GET /api/installations`, with "Try it out".
+- **Signed webhooks:** Swagger cannot sign a delivery, so use the script, which
+  signs it the way GitHub does:
+
+  ```bash
+  PATO_COMMIT_GITHUB_WEBHOOK_SECRET=... scripts/send-webhook.sh ping
+  ```
+
+### Receiving real webhooks from GitHub
+
+GitHub has to reach the webhook endpoint, which is on loopback. A Cloudflare
+quick tunnel bridges the two with no account and no domain:
+
+```bash
+brew install cloudflared
+cloudflared tunnel --url http://127.0.0.1:8090
+```
+
+Point it at **port 8090, never 8080.** 8090 serves the webhook endpoint and
+nothing else; 8080 serves everything, unauthenticated
+([ADR 0003](docs/adr/0003-webhook-only-port-for-tunnels.md)). Set the App's
+webhook URL to the printed `https://….trycloudflare.com` address plus
+`/api/webhooks/github`. The address changes on every run.
+
 ### Configuration
 
 Every setting has a working local default; override through the environment.
@@ -159,8 +187,9 @@ Every setting has a working local default; override through the environment.
 | `PATO_COMMIT_GITHUB_WEBHOOK_SECRET` | empty — every delivery is rejected while unset |
 | `PATO_COMMIT_GITHUB_APP_ID`       | empty — GitHub API calls are disabled while unset |
 | `PATO_COMMIT_GITHUB_PRIVATE_KEY`  | empty — PEM text; `\n` escapes are accepted     |
+| `PATO_COMMIT_WEBHOOK_PORT`        | `8090` — webhook-only port for tunnels; `0` disables it |
 
-Actuator endpoints: `/actuator/health`, `/actuator/info`, `/actuator/metrics`,
+Actuator endpoints (port 8080 only): `/actuator/health`, `/actuator/info`, `/actuator/metrics`,
 `/actuator/prometheus`.
 
 ## GitHub App
@@ -256,6 +285,7 @@ Decisions worth arguing about are written down instead of implied:
 
 - [0001 — Modular monolith, no message broker and no Redis](docs/adr/0001-modular-monolith-without-broker-or-redis.md)
 - [0002 — No authentication until M8; the API is bound to loopback](docs/adr/0002-no-authentication-until-m8.md)
+- [0003 — A webhook-only port for tunnels](docs/adr/0003-webhook-only-port-for-tunnels.md)
 
 Each record states its context, the decision, the consequences, and the
 conditions that would make it worth revisiting.
