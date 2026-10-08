@@ -7,6 +7,9 @@ pato-commit:
     # Long enough that the sweeper never fires during a test run. Tests drive
     # WebhookProcessor.recoverStale() directly, so cadence is irrelevant here.
     recovery-interval: PT1H
+  sync:
+    # Tests call InstallationSync.syncAll() directly.
+    initial-delay: PT1H
 
 logging:
   level:

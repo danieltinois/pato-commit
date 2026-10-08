@@ -76,6 +76,11 @@ pato-commit:
     private-key: ${PATO_COMMIT_GITHUB_PRIVATE_KEY:}
     # Only differs from the default on GitHub Enterprise Server.
     api-url: https://api.github.com
+  sync:
+    # Reconciles installations and repositories against the GitHub API. Webhooks
+    # keep the data current between passes; this catches what they missed.
+    initial-delay: PT10S
+    interval: PT6H
 
 logging:
   pattern:

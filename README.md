@@ -179,8 +179,13 @@ handled yet.
 cached in memory until five minutes before expiry. The `installation` and
 `installation_repositories` handlers keep `github_installation` and
 `github_repository` current, and cope with GitHub delivering events out of
-order: once an installation is deleted, late events for it are ignored. The
-full repository sync is next. Credentials are read from the environment and must
+order: once an installation is deleted, late events for it are ignored. A sync
+runs ten seconds after startup and every six hours (`pato-commit.sync.*`): it
+pages through the installations and their repositories and reconciles the
+database against them. A repository missing from a complete listing is removed;
+an installation is removed only once GitHub answers 404 for it by id, because
+that removal is final. Writes made by a webhook while the listing was being
+paged win over the listing. Credentials are read from the environment and must
 never be committed.
 
 ## Webhook processing

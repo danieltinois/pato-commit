@@ -1,5 +1,10 @@
 package dev.patocommit.github.installation;
 
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -76,6 +81,35 @@ class InstallationService {
 		payload.repositoriesRemoved().forEach(repository -> store.markRepositoryRemoved(installationId, repository.id()));
 		log.info("installation {}: {} repositories added, {} removed", installationId,
 				payload.repositoriesAdded().size(), payload.repositoriesRemoved().size());
+	}
+
+	/**
+	 * Makes the installation's live repositories match a complete listing taken at
+	 * {@code listedAt}. Rows a webhook changed after that moment are left alone:
+	 * the webhook saw a later state of GitHub than the listing did.
+	 *
+	 * <p>Unlike removing an installation, removing a repository here is safe to
+	 * get wrong: the next webhook or sync that lists it again undoes it.
+	 */
+	@Transactional
+	void reconcileRepositories(long installationId, List<InstallationPayload.Repository> listed, Instant listedAt) {
+		if (!store.lockLive(installationId)) {
+			return;
+		}
+		Set<Long> listedIds = new HashSet<>();
+		for (InstallationPayload.Repository repository : listed) {
+			listedIds.add(repository.id());
+			store.upsertRepositoryFromSync(installationId, repository, listedAt);
+		}
+		int removed = 0;
+		for (long repositoryId : store.liveRepositoryIds(installationId)) {
+			if (!listedIds.contains(repositoryId)) {
+				store.markRepositoryRemovedFromSync(installationId, repositoryId, listedAt);
+				removed++;
+			}
+		}
+		log.info("installation {} synced: {} repositories listed, {} no longer granted", installationId, listed.size(),
+				removed);
 	}
 
 }
